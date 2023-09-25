@@ -5,7 +5,7 @@ import CategoryList from "../components/CategoryList";
 import ProductList from "../components/ProductList";
 
 export default function HomePage() {
-  const [currentCategory, setCurrentCategory] = useState("all");
+  const [currentCategory, setCurrentCategory] = useState();
   const [productSet, setProductSet] = useState(allProducts);
   const handleCategoryClick = (event) => {
     const categoryName = event.target.title.replace("FAKE: ", "");
@@ -14,14 +14,17 @@ export default function HomePage() {
         (product) => product.category === categoryName
       );
       setProductSet(products);
-      setCurrentCategory(event.target.value);
+      setCurrentCategory(event.target.title);
     }
   };
   return (
-    <div>
+    <>
       <Header />
-      <CategoryList handleCategoryClick={handleCategoryClick} />
+      <CategoryList
+        handleCategoryClick={handleCategoryClick}
+        currentCategory={currentCategory}
+      />
       <ProductList productSet={productSet} />
-    </div>
+    </>
   );
 }
