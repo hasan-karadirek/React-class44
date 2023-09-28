@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchData } from "../helpers/fetchHelper";
+import fetchData from "../helpers/fetchHelper";
 
 export default function CategoryList({
   handleCategoryClick,
