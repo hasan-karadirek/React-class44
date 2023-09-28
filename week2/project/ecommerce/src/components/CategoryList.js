@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../helpers/fetchHelper";
 
-export default function CategoryList({ handleCategoryClick, currentCategory }) {
+export default function CategoryList({
+  handleCategoryClick,
+  currentCategory,
+  errorHandler,
+}) {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    fetchData("https://fakestoreapi.com/products/categories").then((result) => {
-      setCategories(result);
-    });
+    setLoading(true);
+    fetchData("https://fakestoreapi.com/products/categories")
+      .then((result) => {
+        setCategories(result);
+      })
+      .catch((err) => errorHandler(err))
+      .finally(setLoading(false));
   }, []);
 
   const categoryList = categories.map((category) => {
@@ -24,5 +34,9 @@ export default function CategoryList({ handleCategoryClick, currentCategory }) {
       </div>
     );
   });
-  return <div className="categories">{categoryList}</div>;
+  return loading ? (
+    <p>loading</p>
+  ) : (
+    <div className="categories">{categoryList}</div>
+  );
 }

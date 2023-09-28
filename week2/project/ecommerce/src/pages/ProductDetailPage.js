@@ -3,16 +3,16 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { fetchData } from "../helpers/fetchHelper";
 import { useState } from "react";
-export default function ProductDetailPage() {
+export default function ProductDetailPage({ errorHandler }) {
   const { id } = useParams();
   const [product, setProduct] = useState();
   useEffect(() => {
-    fetchData(`https://fakestoreapi.com/products/${id}`).then((result) =>
-      setProduct(result)
-    );
+    fetchData(`https://fakestoreapi.com/products/${id}`)
+      .then((result) => setProduct(result))
+      .catch((err) => errorHandler(err));
   }, [id]);
   return !product ? (
-    "loading"
+    <p>loading</p>
   ) : (
     <div className="product-details">
       <div className="title-container">

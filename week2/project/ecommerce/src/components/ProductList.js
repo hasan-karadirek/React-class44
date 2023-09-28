@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../helpers/fetchHelper";
 
-export default function ProductList({ currentCategory }) {
+export default function ProductList({ currentCategory, errorHandler }) {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (currentCategory === "all") {
-      fetchData("https://fakestoreapi.com/products").then((result) =>
-        setProducts(result)
-      );
+      setLoading(true);
+      fetchData("https://fakestoreapi.com/products")
+        .then((result) => setProducts(result))
+        .catch((err) => errorHandler(err))
+        .finally(() => setLoading(false));
     } else {
+      setLoading(true);
       fetchData(
         `https://fakestoreapi.com/products/category/${currentCategory.replace(
           "FAKE: ",
           ""
         )}`
-      ).then((result) => {
-        setProducts(result);
-      });
+      )
+        .then((result) => {
+          setProducts(result);
+        })
+        .catch((err) => errorHandler(err))
+        .finally(() => setLoading(false));
     }
   }, [currentCategory]);
 
@@ -37,9 +44,5 @@ export default function ProductList({ currentCategory }) {
     );
   });
 
-  return productList.length === 0 ? (
-    "loading"
-  ) : (
-    <ul className="products">{productList}</ul>
-  );
+  return loading ? <p>loading</p> : <ul className="products">{productList}</ul>;
 }

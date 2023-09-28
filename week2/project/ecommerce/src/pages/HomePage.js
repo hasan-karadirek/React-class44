@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import CategoryList from "../components/CategoryList";
 import ProductList from "../components/ProductList";
 
-export default function HomePage() {
+export default function HomePage({ errorHandler }) {
   const [currentCategory, setCurrentCategory] = useState("all");
 
   const handleCategoryClick = (event) => {
@@ -15,10 +15,14 @@ export default function HomePage() {
     <>
       <Header />
       <CategoryList
+        errorHandler={errorHandler}
         handleCategoryClick={handleCategoryClick}
         currentCategory={currentCategory}
       />
-      <ProductList currentCategory={currentCategory} />
+      <ProductList
+        errorHandler={errorHandler}
+        currentCategory={currentCategory}
+      />
     </>
   );
 }
