@@ -1,0 +1,133 @@
+#h1{
+  font-size: 2em;
+    margin: 0.67em 0;
+}
+.categories {
+    display: flex;
+}
+.category--item {
+  background-color: #efeff0;
+  cursor: pointer;
+  font-weight: 700;
+  margin: 2px;
+  padding: 12px;
+}
+.category--item.active {
+  background-color: #bdbdc1;
+}
+.products {
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  -webkit-padding-start: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-block-end: 0;
+  margin-block-start: 0;
+  padding-inline-start: 0;
+}
+.products--item {
+  margin: 8px;
+  width: 100%;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+.product--image {
+  margin-bottom: auto;
+  margin-top: auto;
+  max-height: 300px;
+  object-fit: contain;
+  width: 100%;
+}
+.product-image--favourite{
+  position: absolute;
+  width: 20px;
+    
+}
+.product-image-container{
+  display: flex;
+  position: relative;
+
+}
+.product-favourite-container{
+  position: absolute;
+  cursor: pointer;
+  top: 30px;
+  right: 20px;
+  z-index: 1000;
+}
+.product--title {
+  overflow: hidden;
+  padding-top: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (min-width: 600px){
+  .products--item {
+      width: calc(50% - 16px);
+  }}
+@media (min-width: 1000px){
+.products--item {
+    width: calc(33% - 16px);
+}}
+
+
+.title-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.title-container--title {
+  margin-right: auto;
+}
+
+.product-details--information {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 600px){
+.product-details--information {
+    flex-direction: row-reverse;
+}}
+.product-details--image {
+  min-width: 50%;
+}
+.product-image--container {
+  position: relative;
+}
+.product-details--information img {
+  max-height: 80vh;
+  order: 0;
+}
+.product-image {
+  margin-bottom: auto;
+  margin-top: auto;
+  max-height: 300px;
+  object-fit: contain;
+  width: 100%;
+}
+.navbar{
+  list-style: none;
+  display: inline-flex;
+  position: relative;
+}
+.navbar > *{
+  margin: auto;
+}
+.navbar-right{
+  position: fixed;
+  display: inline-flex;
+  right: 50px;
+  top: 50px;
+}
+.navbar-right > *{
+  padding-right: 10px;
+  padding-left: 10px;
+}
