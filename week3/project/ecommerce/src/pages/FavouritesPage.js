@@ -1,14 +1,10 @@
-import React, { useContext, useState } from "react";
 import ProductList from "../components/ProductList";
-import {
-  CustomContextProvider,
-  FavouritesContext,
-  useFavouritesContext,
-} from "../context/FavouritesContext.js";
+import Header from "../components/Header";
 
 export default function FavouritesPage({ errorHandler }) {
   return (
     <>
+      <Header />
       <ProductList errorHandler={errorHandler} />
     </>
   );

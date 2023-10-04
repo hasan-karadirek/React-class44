@@ -1,27 +1,18 @@
 import { createContext, useState } from "react";
 
-export const FavouritesContext = createContext({
-  favContext: [],
-  handleFavContext: function () {
-    console.log("hasan");
-  },
-});
+export const FavouritesContext = createContext();
 
 export function useFavouritesContext() {
   const [favContext, setFavContext] = useState([]);
 
   const handleFavContext = (id) => {
     setFavContext((previousValue) => {
-      console.log(previousValue);
       if (previousValue.includes(id)) {
-        previousValue.splice(previousValue.indexOf(id), 1);
-        return previousValue;
+        return previousValue.filter((pId) => pId !== id);
       } else {
-        previousValue.push(id);
-        return previousValue;
+        return [...previousValue, id];
       }
     });
-    console.log(favContext, id);
   };
   return { favContext, handleFavContext };
 }

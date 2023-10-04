@@ -1,22 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import fetchData from "../helpers/fetchHelper";
+import React, { useContext } from "react";
+
 import useFetch from "../helpers/useFetch";
 import heartSolid from "../assets/heart-solid.svg";
 import heartRegular from "../assets/heart-regular.svg";
 import { FavouritesContext } from "../context/FavouritesContext";
+import { Link } from "react-router-dom";
 
 export default function ProductList({ currentCategory, errorHandler }) {
   const { favContext, handleFavContext } = useContext(FavouritesContext);
-  console.log(favContext);
   let url;
   if (!currentCategory) {
-    const favoriteProductsUrl = "https://fakestoreapi.com/products/";
+    const apiProductEndPoint = "https://fakestoreapi.com/products/";
     const favoriteProductUrls = favContext.map(
-      (id) => `${favoriteProductsUrl}${id}`
+      (id) => `${apiProductEndPoint}${id}`
     );
-    url = favoriteProductUrls.join(",");
-
-    console.log(url);
+    url = favContext.length === 0 ? "" : favoriteProductUrls.join(",");
   } else if (currentCategory === "all") {
     url = "https://fakestoreapi.com/products";
   } else {
@@ -30,34 +28,32 @@ export default function ProductList({ currentCategory, errorHandler }) {
   const productList = products
     ? products.map((product) => {
         return (
-          <li key={product.id} className="products--item">
-            <a href={`/product/${product.id}`}>
-              <div className="product">
-                <div className="product-image-container">
-                  <div
-                    id={product.id}
-                    onClick={(e) => {
-                      console.log("click");
-                      handleFavContext(product.id);
-                      e.preventDefault();
-                    }}
-                    className="product-favourite-container"
-                  >
-                    <img
-                      className="product-image--favourite"
-                      src={heartRegular}
-                    />
-                  </div>
+          <li key={product.id} className="products-item">
+            <div className="product-container">
+              <Link to={`/product/${product.id}`}>
+                <div className="product">
                   <img
-                    className="product--image"
+                    className="product-image"
                     src={product.image}
                     alt={product.title}
                   />
+                  <span className="product-title">{product.title}</span>
                 </div>
-
-                <span className="product--title">{product.title}</span>
-              </div>
-            </a>
+              </Link>
+              <button
+                id={product.id}
+                onClick={() => handleFavContext(product.id)}
+                className="toggle-favourites "
+              >
+                <img
+                  alt=""
+                  className="fav-toggle-icon"
+                  src={
+                    favContext.includes(product.id) ? heartSolid : heartRegular
+                  }
+                />
+              </button>
+            </div>
           </li>
         );
       })

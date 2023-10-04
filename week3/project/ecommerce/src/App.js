@@ -5,48 +5,53 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import { useState } from "react";
 import ErrorComponent from "./components/ErrorComponent";
 import FavouritesPage from "./pages/FavouritesPage";
-import { CustomContextProvider } from "./context/FavouritesContext";
+import FavouritesContextLayout from "./components/FavouritesContextLayout";
 
 function App() {
   const [apiError, setApiError] = useState();
   const errorHandler = (err) => setApiError(err);
+
   return (
-    <CustomContextProvider>
-      <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              !apiError ? (
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !apiError ? (
+              <FavouritesContextLayout>
                 <HomePage errorHandler={errorHandler} />
-              ) : (
-                <ErrorComponent apiError={apiError} />
-              )
-            }
-          />
-          <Route
-            path="/product/:id"
-            element={
-              !apiError ? (
+              </FavouritesContextLayout>
+            ) : (
+              <ErrorComponent apiError={apiError} />
+            )
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            !apiError ? (
+              <FavouritesContextLayout>
                 <ProductDetailPage errorHandler={errorHandler} />
-              ) : (
-                <ErrorComponent apiError={apiError} />
-              )
-            }
-          />
-          <Route
-            path="/favourites"
-            element={
-              !apiError ? (
+              </FavouritesContextLayout>
+            ) : (
+              <ErrorComponent apiError={apiError} />
+            )
+          }
+        />
+        <Route
+          path="/favourites"
+          element={
+            !apiError ? (
+              <FavouritesContextLayout>
                 <FavouritesPage errorHandler={errorHandler} />
-              ) : (
-                <ErrorComponent apiError={apiError} />
-              )
-            }
-          />
-        </Routes>
-      </Router>
-    </CustomContextProvider>
+              </FavouritesContextLayout>
+            ) : (
+              <ErrorComponent apiError={apiError} />
+            )
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 

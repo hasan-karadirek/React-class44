@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import fetchData from "../helpers/fetchHelper";
+import React from "react";
+
 import useFetch from "../helpers/useFetch";
 
 export default function CategoryList({
@@ -11,19 +11,6 @@ export default function CategoryList({
     "https://fakestoreapi.com/products/categories",
     errorHandler
   );
-  // const [categories, setCategories] = useState([]);
-  // const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchData("https://fakestoreapi.com/products/categories")
-  //     .then((result) => {
-  //       setCategories(result);
-  //     })
-  //     .catch((err) => errorHandler(err))
-  //     .finally(setLoading(false));
-  // }, []);
-  console.log(categories, "category");
 
   const categoryList = categories
     ? categories.map((category) => {

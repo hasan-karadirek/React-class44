@@ -20,12 +20,11 @@ export default function HomePage({ errorHandler }) {
         handleCategoryClick={handleCategoryClick}
         currentCategory={currentCategory}
       />
-      <CustomContextProvider>
-        <ProductList
-          errorHandler={errorHandler}
-          currentCategory={currentCategory}
-        />
-      </CustomContextProvider>
+
+      <ProductList
+        errorHandler={errorHandler}
+        currentCategory={currentCategory}
+      />
     </>
   );
 }
